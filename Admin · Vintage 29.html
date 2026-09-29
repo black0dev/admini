@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin · Vintage 29</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--fg:#0a0a14;--mut:#64748b;--bd:#e5e7eb;--card:#fff;--soft:#eef0f6;--top:#3d2b24;--warn:#b45309;--bad:#b91c1c;--ok:#15803d;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0b12;--fg:#f4f4f8;--mut:#9aa3b5;--bd:#26272f;--card:#11121a;--soft:#1e2030;--warn:#f59e0b;--bad:#f87171;--ok:#4ade80}}
+:root[data-theme="dark"]{--bg:#0b0b12;--fg:#f4f4f8;--mut:#9aa3b5;--bd:#26272f;--card:#11121a;--soft:#1e2030;--warn:#f59e0b;--bad:#f87171;--ok:#4ade80}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 Inter,system-ui,sans-serif;border-top:5px solid var(--top)}
+header{display:flex;align-items:center;gap:24px;padding:14px 16px;border-bottom:1px solid var(--bd)}
+.store{display:flex;align-items:center;gap:10px;border:1px solid var(--bd);border-radius:8px;padding:8px 12px;min-width:200px;justify-content:space-between;font-weight:500;background:var(--card);color:var(--fg)}
+nav{display:flex;gap:24px;flex:1;overflow-x:auto;white-space:nowrap}
+nav button{all:unset;cursor:pointer;color:var(--mut);font-weight:500;padding:4px 0}
+nav button:hover{color:var(--fg)}
+nav button[aria-current=page]{color:var(--fg)}
+nav button:focus-visible,.icon:focus-visible,.btn:focus-visible{outline:2px solid var(--fg);outline-offset:3px;border-radius:6px}
+.icon{width:40px;height:40px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);cursor:pointer;font-size:16px}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--soft)}
+main{padding:24px 32px 48px;max-width:1600px;margin:auto}
+h1{font-size:28px;margin:0;letter-spacing:-.02em}
+.sub{color:var(--mut);margin:0 0 16px}
+.head{border-bottom:1px solid var(--bd);margin-bottom:16px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.head .sub{margin-bottom:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:24px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.card .t{display:flex;justify-content:space-between;font-weight:500;color:var(--fg);margin-bottom:10px}
+.card .t span{color:var(--mut)}
+.card .n{font-size:26px;font-weight:700;letter-spacing:-.01em}
+.card h2{font-size:22px;margin:0 0 14px;letter-spacing:-.01em}
+.wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--bd);white-space:nowrap}
+th{color:var(--mut);font-weight:500}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:500;background:var(--soft)}
+.badge.ok{color:var(--ok)}.badge.warn{color:var(--warn)}.badge.bad{color:var(--bad)}
+.btn{cursor:pointer;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:8px;padding:7px 12px;font:inherit;font-weight:500}
+.btn.p{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.tools{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+input,select{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
+dialog{border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--fg);padding:24px;width:min(420px,92vw)}
+dialog::backdrop{background:rgba(0,0,0,.4)}
+dialog label{display:block;margin:12px 0 4px;font-weight:500}
+dialog input,dialog select{width:100%}
+.empty{color:var(--mut);padding:24px 0}
+.pgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:16px;align-items:start}
+@media(max-width:900px){.pgrid{grid-template-columns:1fr}}
+.pl{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px}
+.pi{all:unset;box-sizing:border-box;width:100%;cursor:pointer;padding:9px 12px;border:1px solid var(--bd);border-radius:8px;display:flex;gap:8px;align-items:center}
+.pi[aria-current=true]{border-color:var(--fg);background:var(--soft)}
+.pi:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.fld{display:grid;gap:4px;margin-bottom:12px}.fld label{font-weight:500}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.psticky{position:sticky;top:12px}
+.tile{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#3d2b24,#7a5a4c)}
+.tile.sel{outline:2px solid var(--fg);outline-offset:2px}
+.pvn{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.pvn .tile{aspect-ratio:4/3}.pvn .pc h2{font-size:clamp(15px,1.8vw,20px)}.pvn .pc{padding:10%}.pvn .pb{padding:6px 12px}
+.pm{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.po{position:absolute;inset:0}
+.pc{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:8%;color:#fff}
+.pc h2{margin:0;font-size:clamp(18px,3.2vw,34px);letter-spacing:-.02em;line-height:1.1}
+.pc p{margin:0;opacity:.9}
+.pb{background:#fff;color:#111;border-radius:8px;padding:8px 16px;font-weight:600;margin-top:6px}
+.btn[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.pnote{color:var(--mut);font-size:13px;margin:8px 0 0}
+@media(max-width:700px){main{padding:20px 16px}header{gap:12px;flex-wrap:wrap}.store{min-width:0}}
+</style>
+</head>
+<body>
+<header>
+  <div class="store"><span>🏪 Vintage 29</span><span aria-hidden="true">⇅</span></div>
+  <nav id="nav" aria-label="Secciones"></nav>
+  <button class="icon" id="theme" aria-label="Cambiar tema">☀</button>
+  <div class="avatar" aria-hidden="true"></div>
+</header>
+<main id="view"></main>
+
+<dialog id="dlg">
+  <h2 style="margin:0 0 4px;font-size:18px" id="dlgT">Ajustar stock</h2>
+  <p class="sub" id="dlgS"></p>
+  <label for="tipo">Tipo</label>
+  <select id="tipo"><option value="Entrada">Entrada</option><option value="Ajuste">Ajuste (puede ser negativo)</option></select>
+  <label for="qty">Cantidad</label><input id="qty" type="number" step="1" value="1">
+  <label for="mot">Motivo</label><input id="mot" placeholder="Ej. reposición de bodega">
+  <p class="sub" id="err" style="color:var(--bad);margin:8px 0 0"></p>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:18px">
+    <button class="btn" id="cancel">Cancelar</button><button class="btn p" id="save">Guardar ajuste</button>
+  </div>
+</dialog>
+
+<script>
+// Datos ficticios de ejemplo (reemplazar por Supabase vía Refine)
+var V=[
+ {id:1,p:'Blazer oversize lino',cat:'Blazers',sku:'BLZ-LIN-M-BEI',talla:'M',color:'Beige',precio:189,asig:6,res:1,ven:2,umb:2,pub:true},
+ {id:2,p:'Blazer oversize lino',cat:'Blazers',sku:'BLZ-LIN-L-BEI',talla:'L',color:'Beige',precio:189,asig:4,res:0,ven:4,umb:2,pub:true},
+ {id:3,p:'Jean mom fit',cat:'Pantalones',sku:'JEA-MOM-28-AZU',talla:'28',color:'Azul',precio:139,asig:8,res:2,ven:4,umb:3,pub:true},
+ {id:4,p:'Jean mom fit',cat:'Pantalones',sku:'JEA-MOM-30-AZU',talla:'30',color:'Azul',precio:139,asig:5,res:0,ven:3,umb:3,pub:true},
+ {id:5,p:'Blusa satén',cat:'Blusas',sku:'BLU-SAT-S-NEG',talla:'S',color:'Negro',precio:99,asig:10,res:0,ven:3,umb:2,pub:true},
+ {id:6,p:'Blusa satén',cat:'Blusas',sku:'BLU-SAT-M-VIN',talla:'M',color:'Vino',precio:99,asig:3,res:1,ven:2,umb:2,pub:true},
+ {id:7,p:'Vestido midi floral',cat:'Vestidos',sku:'VES-FLO-S-VER',talla:'S',color:'Verde',precio:159,asig:2,res:0,ven:0,umb:2,pub:false},
+ {id:8,p:'Falda plisada',cat:'Faldas',sku:'FAL-PLI-M-CAM',talla:'M',color:'Camel',precio:119,asig:4,res:0,ven:1,umb:2,pub:true}
+];
+var M=[
+ {f:'2026-09-28 09:12',s:'BLU-SAT-M-VIN',t:'Ajuste',q:-1,m:'Prenda con defecto',u:'marketing@vintage29'},
+ {f:'2026-09-27 17:40',s:'JEA-MOM-28-AZU',t:'Entrada',q:4,m:'Reposición de bodega',u:'admin@vintage29'},
+ {f:'2026-09-26 11:05',s:'BLZ-LIN-L-BEI',t:'Venta',q:-1,m:'Pedido pagado',u:'sistema'}
+];
+var TABS=['Resumen','Portada web','Productos','Inventario','Movimientos','Categorías','Envíos'];
+var cur='Resumen',$=function(s){return document.querySelector(s)};
+function disp(v){return v.asig-v.ven-v.res}          // asignado + ajustes - vendido - reservas
+function est(v){var d=disp(v);return d<=0?['Agotado','bad']:d<=v.umb?['Stock bajo','warn']:['Disponible','ok']}
+function badge(v){var e=est(v);return '<span class="badge '+e[1]+'">'+e[0]+'</span>'}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function head(t,s,x){return '<div class="head"><div><h1>'+t+'</h1><p class="sub">'+s+'</p></div>'+(x||'')+'</div>'}
+function table(cols,rows){return '<div class="wrap"><table><thead><tr>'+cols.map(function(c){return '<th'+(c[1]?' class="r"':'')+'>'+c[0]+'</th>'}).join('')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>'}
+
+var R={
+Resumen:function(){
+ var pubs=V.filter(function(v){return v.pub}),prods={};pubs.forEach(function(v){prods[v.p]=1});
+ var act=V.filter(function(v){return v.pub}).length,ago=V.filter(function(v){return v.pub&&disp(v)<=0}).length,baj=V.filter(function(v){return v.pub&&disp(v)>0&&disp(v)<=v.umb}).length;
+ function c(t,n,i){return '<div class="card"><div class="t">'+t+'<span>'+i+'</span></div><div class="n">'+n+'</div></div>'}
+ return head('Panel','Resumen de tu tienda')+
+ '<div class="cards">'+c('Productos publicados',Object.keys(prods).length,'▢')+c('Variantes activas',act,'▤')+c('Agotadas',ago,'⊘')+c('Stock bajo',baj,'▾')+'</div>'+
+ '<div class="card"><h2>Últimos ajustes de inventario</h2>'+table([['Fecha'],['SKU'],['Tipo'],['Cantidad',1],['Motivo'],['Usuario']],M.map(function(m){return '<tr><td>'+m.f+'</td><td>'+m.s+'</td><td>'+m.t+'</td><td class="r">'+(m.q>0?'+':'')+m.q+'</td><td>'+esc(m.m)+'</td><td>'+esc(m.u)+'</td></tr>'}))+'</div>'},
+Productos:function(){
+ return head('Productos','Fichas y variantes que se muestran en la tienda','<button class="btn p" style="margin-bottom:16px">Nuevo producto</button>')+
+ '<div class="card"><div class="tools"><input id="q" placeholder="Buscar por nombre o SKU" aria-label="Buscar"><select id="f" aria-label="Filtrar por estado"><option value="">Todos los estados</option><option>Disponible</option><option>Stock bajo</option><option>Agotado</option></select></div><div id="tb"></div></div>'},
+Inventario:function(){
+ return head('Inventario online','Unidades asignadas al canal online por variante')+'<div class="card"><div id="tb"></div></div>'},
+Movimientos:function(){
+ return head('Movimientos','Historial de entradas, ajustes, reservas y ventas (solo lectura)')+'<div class="card">'+table([['Fecha'],['SKU'],['Tipo'],['Cantidad',1],['Motivo'],['Usuario']],M.map(function(m){return '<tr><td>'+m.f+'</td><td>'+m.s+'</td><td>'+m.t+'</td><td class="r">'+(m.q>0?'+':'')+m.q+'</td><td>'+esc(m.m)+'</td><td>'+esc(m.u)+'</td></tr>'}))+'</div>'},
+'Categorías':function(){
+ var cs={};V.forEach(function(v){cs[v.cat]=(cs[v.cat]||0)+1});
+ return head('Categorías','Cómo se agrupan los productos en la tienda')+'<div class="card">'+table([['Nombre'],['Variantes',1],['Estado']],Object.keys(cs).map(function(k){return '<tr><td>'+k+'</td><td class="r">'+cs[k]+'</td><td><span class="badge ok">Activa</span></td></tr>'}))+'</div>'},
+'Envíos':function(){
+ return head('Envíos','Métodos y tarifas por zona')+'<div class="card"><p class="empty">Las tarifas de envío se activan en la etapa 2. Mientras tanto, la tienda no cotiza envíos.</p></div>'}
+};
+
+R['Portada web']=function(){
+ return head('Portada web','Edita lo que ven tus clientas al entrar a la tienda','<button class="btn p" id="pSave" style="margin-bottom:16px">Guardar cambios</button>')+
+ '<p id="pMsg" role="status" style="color:var(--ok);min-height:20px;margin:-4px 0 8px"></p><div class="pgrid"><div class="card"><div class="row" role="group" aria-label="Zona de la portada" style="margin-bottom:16px"><button class="btn" id="pZ1">Portada principal</button><button class="btn" id="pZ2">Sub portadas</button></div><h2 id="pH"></h2><p class="sub" id="pD" style="margin-top:-8px"></p><ul class="pl" id="pList"></ul><div class="row" style="margin-bottom:18px"><button class="btn" id="pAddV">+ Agregar video</button><button class="btn" id="pAddB">+ Agregar imagen</button></div><div id="pForm"></div></div><div class="psticky"><div id="prev" aria-label="Vista previa"></div><p class="pnote" id="pN"></p></div></div>'};
+function drawTable(){
+ var tb=$('#tb');if(!tb)return;
+ var q=($('#q')?$('#q').value:'').toLowerCase(),f=$('#f')?$('#f').value:'';
+ var rows=V.filter(function(v){return(!q||(v.p+v.sku).toLowerCase().indexOf(q)>-1)&&(!f||est(v)[0]===f)});
+ if(cur==='Productos'){
+  tb.innerHTML=rows.length?table([['Producto'],['SKU'],['Talla'],['Color'],['Precio',1],['Disponible',1],['Estado'],['Publicado']],rows.map(function(v){return '<tr><td>'+v.p+'</td><td>'+v.sku+'</td><td>'+v.talla+'</td><td>'+v.color+'</td><td class="r">S/ '+v.precio.toFixed(2)+'</td><td class="r">'+disp(v)+'</td><td>'+badge(v)+'</td><td>'+(v.pub?'Sí':'No')+'</td></tr>'})):'<p class="empty">No hay variantes con esos filtros. Cambia la búsqueda o el estado.</p>';
+ }else{
+  tb.innerHTML=table([['Variante'],['SKU'],['Asignado',1],['Reservado',1],['Vendido',1],['Disponible',1],['Estado'],['']],V.map(function(v){return '<tr><td>'+v.p+' · '+v.talla+' · '+v.color+'</td><td>'+v.sku+'</td><td class="r">'+v.asig+'</td><td class="r">'+v.res+'</td><td class="r">'+v.ven+'</td><td class="r">'+disp(v)+'</td><td>'+badge(v)+'</td><td><button class="btn" data-adj="'+v.id+'">Ajustar</button></td></tr>'}));
+ }
+}
+
+function mk(t,z,ti,sb,bt,lk,ov,al,pub){return {t:t,z:z,titulo:ti,sub:sb,btn:bt,link:lk,src:'',ov:ov,al:al,pub:pub}}
+var P={sel:0,z:'main',items:[
+ mk('video','main','Nueva colección de otoño','Piezas vintage elegidas a mano','Ver colección','/catalogo',40,'left',true),
+ mk('banner','main','Blazers de lino','Últimas unidades disponibles','Comprar ahora','/categoria/blazers',30,'center',true),
+ mk('banner','sub','Blazers','','Ver más','/categoria/blazers',30,'center',true),
+ mk('banner','sub','Jeans','','Ver más','/categoria/pantalones',30,'center',true),
+ mk('banner','sub','Blusas','','Ver más','/categoria/blusas',30,'center',true)]};
+var ZT={main:['Portada principal','Video o imagen grande que se ve primero al entrar a la tienda.','Vista previa. Si hay varios elementos, la tienda los muestra en el orden de la lista.'],
+ sub:['Sub portadas','Bloques más pequeños debajo de la portada, por ejemplo para categorías u ofertas.','Vista previa de los bloques en fila, en el orden de la lista. El seleccionado tiene borde.']};
+function portada(){
+ var it=function(){return P.items[P.sel]};
+ function zi(){var r=[];P.items.forEach(function(x,i){if(x.z===P.z)r.push(i)});return r}
+ function list(){var a=zi();$('#pList').innerHTML=a.length?a.map(function(i){var x=P.items[i];return '<li><button class="pi" data-i="'+i+'"'+(i===P.sel?' aria-current="true"':'')+'><span class="badge">'+(x.t==='video'?'Video':'Imagen')+'</span><span>'+esc(x.titulo||'Sin título')+'</span>'+(x.pub?'':'<span class="badge warn">Oculto</span>')+'</button></li>'}).join(''):'<li class="empty">Aún no hay elementos aquí. Agrega un video o una imagen.</li>'}
+ function tile(x,sel){var b=document.createElement('div');b.className='tile'+(sel?' sel':'');
+  if(x.src){var m=document.createElement(x.t==='video'?'video':'img');m.src=x.src;m.className='pm';if(x.t==='video'){m.muted=true;m.loop=true;m.autoplay=true;m.playsInline=true}else m.alt='';b.appendChild(m)}
+  var o=document.createElement('div');o.className='po';o.style.background='rgba(0,0,0,'+x.ov/100+')';b.appendChild(o);
+  var c=document.createElement('div');c.className='pc';c.style.textAlign=x.al;c.style.alignItems=x.al==='left'?'flex-start':x.al==='right'?'flex-end':'center';
+  var h=document.createElement('h2');h.textContent=x.titulo;c.appendChild(h);
+  if(x.sub){var p=document.createElement('p');p.textContent=x.sub;c.appendChild(p)}
+  if(x.btn){var a=document.createElement('span');a.className='pb';a.textContent=x.btn;c.appendChild(a)}
+  b.appendChild(c);return b}
+ function prev(){var b=$('#prev');b.innerHTML='';b.className=P.z==='sub'?'pvn':'';
+  if(P.z==='sub'){zi().forEach(function(i){b.appendChild(tile(P.items[i],i===P.sel))})}else if(it())b.appendChild(tile(it(),false))}
+ function form(){var x=it(),f=$('#pForm');if(!x){f.innerHTML='';return}
+  var v=x.t==='video';
+  f.innerHTML='<div class="fld"><label for="pf">'+(v?'Archivo de video (MP4 o WebM)':'Imagen (JPG, PNG o WebP)')+'</label><input id="pf" type="file" accept="'+(v?'video/*':'image/*')+'"><span class="pnote" id="pfn" style="margin:0">'+(x.src?'Archivo cargado.':'Aún no subiste un archivo.')+'</span></div>'+
+  '<div class="fld"><label for="pu">O pega la dirección de '+(v?'un video MP4':'una imagen')+'</label><input id="pu" type="url" placeholder="https://" value="'+(x.src&&x.src.indexOf('http')===0?esc(x.src):'')+'"></div>'+
+  '<div class="fld"><label for="ptit">Título</label><input id="ptit" value="'+esc(x.titulo)+'"></div>'+
+  '<div class="fld"><label for="psub">Subtítulo</label><input id="psub" value="'+esc(x.sub)+'"></div>'+
+  '<div class="two"><div class="fld"><label for="pbtn">Texto del botón</label><input id="pbtn" value="'+esc(x.btn)+'"></div><div class="fld"><label for="plink">Enlace</label><input id="plink" value="'+esc(x.link)+'"></div></div>'+
+  '<div class="two"><div class="fld"><label for="pal">Alineación del texto</label><select id="pal"><option value="left">Izquierda</option><option value="center">Centro</option><option value="right">Derecha</option></select></div><div class="fld"><label for="pov">Oscurecer fondo: <span id="povn">'+x.ov+'</span>%</label><input id="pov" type="range" min="0" max="80" value="'+x.ov+'"></div></div>'+
+  '<div class="row" style="justify-content:space-between"><label class="row"><input type="checkbox" id="ppub"'+(x.pub?' checked':'')+'> Publicado en la tienda</label><span class="row"><button class="btn" id="pUp" aria-label="Subir en la lista">↑</button><button class="btn" id="pDn" aria-label="Bajar en la lista">↓</button><button class="btn" id="pDel" style="color:var(--bad)">Eliminar</button></span></div>';
+  $('#pal').value=x.al}
+ function all(){$('#pZ1').setAttribute('aria-pressed',P.z==='main');$('#pZ2').setAttribute('aria-pressed',P.z==='sub');
+  $('#pH').textContent=ZT[P.z][0];$('#pD').textContent=ZT[P.z][1];$('#pN').textContent=ZT[P.z][2];list();form();prev()}
+ function zone(z){P.z=z;var a=zi();P.sel=a.length?a[0]:-1;all()}
+ function add(t){P.items.push(mk(t,P.z,t==='video'?'Nuevo video':'Nueva imagen','','','',40,P.z==='sub'?'center':'left',false));P.sel=P.items.length-1;all()}
+ $('#pZ1').onclick=function(){zone('main')};$('#pZ2').onclick=function(){zone('sub')};
+ $('#pAddV').onclick=function(){add('video')};$('#pAddB').onclick=function(){add('banner')};
+ $('#pList').onclick=function(e){var b=e.target.closest('[data-i]');if(b){P.sel=+b.dataset.i;all()}};
+ var F=$('#pForm');
+ F.oninput=function(e){var x=it(),i=e.target.id;if(!x)return;
+  if(i==='ptit')x.titulo=e.target.value;else if(i==='psub')x.sub=e.target.value;else if(i==='pbtn')x.btn=e.target.value;else if(i==='plink')x.link=e.target.value;
+  else if(i==='pov'){x.ov=+e.target.value;$('#povn').textContent=x.ov}else if(i==='pu'){x.src=e.target.value.trim();$('#pfn').textContent=x.src?'Usando la dirección pegada.':'Aún no subiste un archivo.'}
+  list();prev()};
+ F.onchange=function(e){var x=it(),i=e.target.id;if(!x)return;
+  if(i==='pal'){x.al=e.target.value;prev()}else if(i==='ppub'){x.pub=e.target.checked;list()}
+  else if(i==='pf'&&e.target.files[0]){var fl=e.target.files[0];
+   if(x.t==='video'){x.src=URL.createObjectURL(fl);$('#pfn').textContent=fl.name;prev()}
+   else{var r=new FileReader();r.onload=function(){x.src=r.result;$('#pfn').textContent=fl.name;prev()};r.readAsDataURL(fl)}}};
+ F.onclick=function(e){var b=e.target.id,A=P.items,k=P.sel,z=zi(),pos=z.indexOf(k);
+  if(b==='pDel'){A.splice(k,1);var n=zi();P.sel=n.length?n[Math.max(0,pos-1)]:-1;all()}
+  else if((b==='pUp'&&pos>0)||(b==='pDn'&&pos<z.length-1)){var o=z[pos+(b==='pUp'?-1:1)],t=A[k];A[k]=A[o];A[o]=t;P.sel=o;all()}};
+ $('#pSave').onclick=function(){var m=$('#pMsg');m.textContent='Cambios guardados.';setTimeout(function(){m.textContent=''},2500)};
+ all()}
+function render(){
+ $('#nav').innerHTML=TABS.map(function(t){return '<button data-t="'+t+'"'+(t===cur?' aria-current="page"':'')+'>'+t+'</button>'}).join('');
+ $('#view').innerHTML=R[cur]();drawTable();if(cur==='Portada web')portada();
+ var q=$('#q'),f=$('#f');if(q)q.oninput=drawTable;if(f)f.onchange=drawTable;
+}
+var sel=null;
+document.addEventListener('click',function(e){
+ var t=e.target.closest('[data-t]');if(t){cur=t.dataset.t;render();return}
+ var a=e.target.closest('[data-adj]');if(a){sel=V.filter(function(v){return v.id==a.dataset.adj})[0];$('#dlgS').textContent=sel.p+' · '+sel.talla+' · '+sel.color+' ('+sel.sku+')';$('#err').textContent='';$('#mot').value='';$('#qty').value=1;$('#dlg').showModal()}
+});
+$('#cancel').onclick=function(){$('#dlg').close()};
+$('#save').onclick=function(){
+ var n=parseInt($('#qty').value,10),m=$('#mot').value.trim(),tp=$('#tipo').value;
+ if(!n||isNaN(n)){$('#err').textContent='Ingresa una cantidad distinta de 0.';return}
+ if(tp==='Entrada'&&n<0){$('#err').textContent='Una entrada debe ser positiva. Usa Ajuste para restar.';return}
+ if(!m){$('#err').textContent='Escribe el motivo del ajuste.';return}
+ if(disp(sel)+n<0){$('#err').textContent='El ajuste dejaría el stock disponible en negativo.';return}
+ sel.asig+=n;M.unshift({f:new Date().toISOString().slice(0,16).replace('T',' '),s:sel.sku,t:tp,q:n,m:m,u:'tu usuario'});
+ $('#dlg').close();render();
+};
+$('#theme').onclick=function(){var d=document.documentElement,dark=getComputedStyle(d).getPropertyValue('--bg').trim()!=='#fff';d.dataset.theme=dark?'light':'dark';$('#theme').textContent=dark?'☀':'☾'};
+render();
+</script>
+</body>
+</html>
