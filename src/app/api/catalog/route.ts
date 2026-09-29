@@ -59,7 +59,7 @@ export async function GET() {
       throw vErr;
     }
 
-    // 2. Obtener portada publicada desde la tabla 'hero_slides' en Supabase DB
+    // 2. Obtener portadas principales y sub-portadas desde la tabla 'hero_slides' en Supabase DB
     const { data: slides } = await supabase
       .from("hero_slides")
       .select("*")
@@ -81,18 +81,35 @@ export async function GET() {
       };
     });
 
-    const hero = (slides || []).map((slide) => ({
+    const mainSlides = (slides || []).filter((s) => s.zone === "main" || !s.zone);
+    const subSlides = (slides || []).filter((s) => s.zone === "sub");
+
+    const hero = mainSlides.map((slide) => ({
       url: slide.media_url,
       order: slide.order_index,
       title: slide.title,
       subtitle: slide.subtitle,
+      buttonText: slide.button_text,
+      linkUrl: slide.link_url,
+      type: slide.type,
+    }));
+
+    const subPortadas = subSlides.map((slide) => ({
+      url: slide.media_url,
+      order: slide.order_index,
+      title: slide.title,
+      subtitle: slide.subtitle,
+      buttonText: slide.button_text,
+      linkUrl: slide.link_url,
+      type: slide.type,
     }));
 
     return NextResponse.json({
-      source: "Supabase DB (table: variants)",
+      source: "Supabase DB (table: variants & hero_slides)",
       generatedAt: new Date().toISOString(),
       total: products.length,
       hero,
+      subPortadas,
       products,
     });
   } catch (error) {

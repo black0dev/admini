@@ -67,19 +67,25 @@ export const HeroEditorView: React.FC = () => {
     updateSlides(updated)
   }
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file || !activeSlide) return
 
-    if (activeSlide.type === 'video') {
-      const url = URL.createObjectURL(file)
-      handleUpdateActiveField('media_url', url)
-    } else {
-      const reader = new FileReader()
-      reader.onload = () => {
-        handleUpdateActiveField('media_url', reader.result as string)
+    setIsSaving(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      const res = await fetch('/api/upload', { method: 'POST', body: formData })
+      if (res.ok) {
+        const data = await res.json()
+        if (data.url) {
+          handleUpdateActiveField('media_url', data.url)
+        }
       }
-      reader.readAsDataURL(file)
+    } catch (err) {
+      console.error('Error al subir archivo:', err)
+    } finally {
+      setIsSaving(false)
     }
   }
 

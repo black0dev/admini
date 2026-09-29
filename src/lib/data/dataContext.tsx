@@ -239,31 +239,31 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     if (isSupabaseConfigured && supabase) {
       try {
-        // Upsert or replace slides
-        for (let i = 0; i < newSlides.length; i++) {
-          const s = newSlides[i]
-          const payload = {
-            type: s.type,
-            zone: s.zone,
-            title: s.title,
-            subtitle: s.subtitle,
-            button_text: s.button_text,
-            link_url: s.link_url,
-            media_url: s.media_url,
-            overlay_opacity: s.overlay_opacity,
-            alignment: s.alignment,
-            is_published: s.is_published,
-            order_index: i
-          }
+        // Reemplazo limpio en Supabase DB para evitar duplicados y mantener orden exacto
+        await supabase.from('hero_slides').delete().neq('id', 0)
 
-          if (typeof s.id === 'number' && s.id < 1000000000000) {
-            await supabase.from('hero_slides').update(payload).eq('id', s.id)
-          } else {
-            await supabase.from('hero_slides').insert([payload])
+        const payloads = newSlides.map((s, idx) => ({
+          type: s.type || 'banner',
+          zone: s.zone || 'main',
+          title: s.title || '',
+          subtitle: s.subtitle || '',
+          button_text: s.button_text || '',
+          link_url: s.link_url || '',
+          media_url: s.media_url || '',
+          overlay_opacity: s.overlay_opacity ?? 30,
+          alignment: s.alignment || 'center',
+          is_published: s.is_published ?? true,
+          order_index: idx
+        }))
+
+        if (payloads.length > 0) {
+          const { data, error } = await supabase.from('hero_slides').insert(payloads).select()
+          if (!error && data) {
+            setSlides(data)
           }
         }
       } catch (err) {
-        console.error('Error syncing slides with Supabase:', err)
+        console.error('Error al sincronizar portadas con Supabase:', err)
       }
     }
 
